@@ -22,41 +22,55 @@ for (var _a = 0, dataStrings_2 = dataStrings; _a < dataStrings_2.length; _a++) {
         console.log(stringValue);
     }
 }
-// 4. Print number of matching Words in string. e.g. the word 'the' occurs 10 times.
-for (var _b = 0, dataStrings_3 = dataStrings; _b < dataStrings_3.length; _b++) {
-    var stringValue = dataStrings_3[_b];
+var _loop_1 = function (stringValue) {
     console.log("-------------------------------------------------------------");
     console.log("Current string: " + stringValue);
     var wordMap = new Map();
     var words = stringValue.split(" ");
-    for (var _c = 0, words_1 = words; _c < words_1.length; _c++) {
-        var word = words_1[_c];
+    var _loop_2 = function (word) {
         word = word.replace(/[^A-z ]/gm, "");
         word = word.toLowerCase();
         if (wordMap.has(word)) {
-            var value = wordMap.get(word) ? wordMap.get(word) : 0;
+            value = 0;
+            value = function () {
+                var val = wordMap.get(word);
+                if (val != null && val != undefined)
+                    return val;
+                else
+                    return 0;
+            }();
             value = value + 1;
             wordMap.set(word, value);
         }
         else {
             wordMap.set(word, 1);
         }
+    };
+    for (var _i = 0, words_2 = words; _i < words_2.length; _i++) {
+        var word = words_2[_i];
+        _loop_2(word);
     }
     wordMap.forEach(function (count, word) {
         console.log("The word " + word + " occurs " + count + " times.\n");
     });
     console.log("-------------------------------------------------------------");
+};
+var value;
+// 4. Print number of matching Words in string. e.g. the word 'the' occurs 10 times.
+for (var _b = 0, dataStrings_3 = dataStrings; _b < dataStrings_3.length; _b++) {
+    var stringValue = dataStrings_3[_b];
+    _loop_1(stringValue);
 }
-// // 4'.  Print number of matching Words in string. e.g. the word 'the' occurs 10 times. (selecting the matching word)
+// 4'.  Print number of matching Words in string. e.g. the word 'the' occurs 10 times. (selecting the matching word)
 var wordToMatch = "the"; // replace this with word to match
-for (var _d = 0, dataStrings_4 = dataStrings; _d < dataStrings_4.length; _d++) {
-    var stringValue = dataStrings_4[_d];
+for (var _c = 0, dataStrings_4 = dataStrings; _c < dataStrings_4.length; _c++) {
+    var stringValue = dataStrings_4[_c];
     console.log("-------------------------------------------------------------");
     console.log("Current string: " + stringValue);
     var words = stringValue.split(" ");
     var occurrence = 0;
-    for (var _e = 0, words_2 = words; _e < words_2.length; _e++) {
-        var word = words_2[_e];
+    for (var _d = 0, words_1 = words; _d < words_1.length; _d++) {
+        var word = words_1[_d];
         word = word.replace(/[^A-z ]/gm, ""); // removing special characters including fullstops and apostrophes
         word = word.toLowerCase(); // ignore case when matching
         if (word === wordToMatch) {

@@ -33,7 +33,14 @@ for (const stringValue of dataStrings) {
         word = word.replace(/[^A-z ]/gm,"");
         word = word.toLowerCase();
         if(wordMap.has(word)){
-            var value = wordMap.get(word) ? wordMap.get(word) : 0;
+            var value = 0;
+            value = function(){
+                var val =  wordMap.get(word);
+                if(val != null && val != undefined)
+                    return val;
+                else
+                    return 0;
+            }();
             value = value + 1;
             wordMap.set(word,value);
         }
@@ -47,7 +54,7 @@ for (const stringValue of dataStrings) {
     console.log("-------------------------------------------------------------");
 }
 
-// // 4'.  Print number of matching Words in string. e.g. the word 'the' occurs 10 times. (selecting the matching word)
+// 4'.  Print number of matching Words in string. e.g. the word 'the' occurs 10 times. (selecting the matching word)
 let wordToMatch = "the"; // replace this with word to match
 for (const stringValue of dataStrings){
     console.log("-------------------------------------------------------------");
