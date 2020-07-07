@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./Product.js"></script>
+    <script src="./createElement.js"></script>
+    <script>
+        let logic = new ProductLogic();
+        let createElement = new CreateElement();
+        window.onload = function() {
+            logic.addProduct(new Product("Mask","Health","Medico+","Protect from Covid19",100));
+            logic.addProduct(new Product("Sanitizer","Health","Medico+","Protect from Covid19",200));
+            logic.addProduct(new Product("HandWash","Health","Dettol","Protect from Covid19",150));
+            
+            var btnget = document.getElementById('btnget');
+            btnget.addEventListener('click', function() {
+                var prds = logic.getAllProducts();
+                console.log('Result on UI ' + JSON.stringify(prds));
+                createElement.createTableFromProductArray(prds);
+            }, false);
+            var btndel = document.getElementById('btndel');
+            btndel.addEventListener('click',function(){
+                var id = document.getElementById("Delete").value;
+                id = Number(id);
+                console.log(logic.deleteProductById(id));
+                createElement.createTableFromProductArray(logic.getAllProducts());
+            },false);
+        }
+        function addProduct(form){
+            logic.addProduct(new Product(
+                    form.Name.value,
+                    form.Category.value,
+                    form.Manufacturer.value,
+                    form.Description.value,
+                    Number(form.Price.value)
+                ));
+            createElement.createTableFromProductArray(logic.getAllProducts());
+        }
+        function updateProduct(form){
+            var result = logic.updateProduct(new Product(
+                                form.Name_Update.value,
+                                form.Category_Update.value,
+                                form.Manufacturer_Update.value,
+                                form.Description_Update.value,
+                                Number(form.Price_Update.value)
+                            ), Number(form.Id_Update.value));
+            console.log(result);
+            createElement.createTableFromProductArray(logic.getAllProducts());
+        }
+    </script>
+    <style>
+       table, th, td {
+            border: 1px solid black;
+        }
+        th{
+            font-weight: 600;
+        }
+        label{
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+    <hr><br>
+    <input type="button" value="Get Products" id="btnget">
+    <hr>
+    <!-- Add Product form -->
+    <form action="javascript:;" onsubmit="addProduct(this)">
+        <label for="Name">Name:</label><br>
+        <input type="text" id="Name" name="Name"><br>
+        <label for="Category">Category:</label><br>
+        <input type="text" id="Category" name="Category"><br>
+        <label for="Manufacturer">Manufacturer:</label><br>
+        <input type="text" id="Manufacturer" name="Manufacturer"><br>
+        <label for="Description">Description(not more than 100 chars):</label><br>
+        <input type="text" id="Description" name="Description"><br>
+        <label for="Price">Price:</label><br>
+        <input type="text" id="Price" name="Price"><br><br>
+        <input type="submit" value="Add Product"><br>
+    </form>
+    
+    <hr>
+    
+    <!-- Update Product form -->
+    <form id="updateForm" action="javascript:;" onsubmit="updateProduct(this)">
+        <label for="Id_Update">Id:</label><br>
+        <input type="text" id="Id_Update" name="Id_Update"><br>
+        <label for="Name_Update">Name:</label><br>
+        <input type="text" id="Name_Update" name="Name_Update"><br>
+        <label for="Category_Update">Category:</label><br>
+        <input type="text" id="Category_Update" name="Category_Update"><br>
+        <label for="Manufacturer_Update">Manufacturer:</label><br>
+        <input type="text" id="Manufacturer_Update" name="Manufacturer_Update"><br>
+        <label for="Description_Update">Description(not more than 100 chars):</label><br>
+        <input type="text" id="Description_Update" name="Description_Update"><br>
+        <label for="Price_Update">Price:</label><br>
+        <input type="text" id="Price_Update" name="Price_Update"><br><br>
+        <input type="submit" value="Update Product"><br>
+    </form>
+
+    <hr>
+    <label for="Delete">Delete Product by Id:</label><br>
+    <input type="text" id="Delete" name="Delete"><br>
+    <input type="button" value="Delete Product" id="btndel">
+
+</body>
+
+</html>

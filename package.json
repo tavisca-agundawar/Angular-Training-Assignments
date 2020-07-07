@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
+    "@types/uuid": "^8.0.0",
     "uuid": "^8.2.0"
   },
   "devDependencies": {
